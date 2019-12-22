@@ -1,25 +1,30 @@
 package cindy.toko.model;
 
-import java.util.Date;
+import java.util.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "pembeli")
+@Table(name = "pembelis")
 public class Pembeli{
 
+    @OneToMany(
+        mappedBy = "pembeli",
+        cascade = CascadeType.ALL
+    )
+    private transient List<Transaksi> transaksis = new ArrayList<>();
 
+    public List<Transaksi> getTransaksis(){
+        return transaksis;
+    }
+
+    public void setTransaksis(List<Transaksi> transaksis){
+        this.transaksis = transaksis; 
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

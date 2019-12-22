@@ -1,6 +1,6 @@
 package cindy.toko.model;
 
-import java.util.Date;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,22 +18,32 @@ public class Transaksi{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
-/*
-    @NotNull (message = "nama harus diisi.")
-    @Column(name = "id_barang")
-    private String id_barang;
-
-    */
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pembeli")
+    private Pembeli pembeli;
+    
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "id_barang")
     private Barang barang;
 
 
-    @NotNull (message = "password harus diisi.")
-    @Column(name = "id_pembeli")
-    private String id_pembeli;
+public Barang getBarang(){
+    return barang;
+}
+
+public void setBarang(Barang barang){
+    this.barang=barang;
+}
+
+    public Pembeli getPembeli(){
+        return pembeli;
+    }
+
+    public void setPembeli(Pembeli pembeli){
+        this.pembeli = pembeli;
+    }
+
 
     @NotNull (message = "password harus diisi.")
     @Column(name = "jumlah")
@@ -50,8 +60,6 @@ public class Transaksi{
     @NotNull (message = "password harus diisi.")
     @Column(name = "total")
     private String total;
-
-
 
     
     @CreationTimestamp
@@ -75,26 +83,6 @@ public class Transaksi{
 
     public void setId(Long id) {
         this.id = id;
-    }
-    
-/*
-    public String getIdBarang() {
-        return id_barang;
-    }
-    
-
-    public void setIdBarang(String id_barang) {
-        this.id_barang = id_barang;
-    }
-
-    */
-
-    public String getIdPembeli() {
-        return id_pembeli;
-    }
-
-    public void setIdPembeli(String id_pembeli) {
-        this.id_pembeli = id_pembeli;
     }
 
     public String getJumlah() {
